@@ -1,0 +1,21 @@
+{
+  "id": "gb-0038",
+  "slug": "leak-threshold",
+  "title": "漏封仪分界校准与盲验席",
+  "direction": "分界值校准 / 盲样验证",
+  "algorithm": "校准组实测读数候选分界；读数达到分界即判漏封；误判最少且同分取小值",
+  "entities": "MaterialRoll / LeakSpecimen / CalibrationRound / LeakJob",
+  "scenario": "漏封仪分界值随卷材批次漂移；整卷划入校准或盲验，校准冻结分界后盲验揭晓，揭晓原子占卷并记录盲验误判数",
+  "note": "分界值换一卷可能就不准。读数达到分界算漏封；从校准组实测读数中选误判最少的分界，同分取小值。分界冻结前盲验复判只可录入、不可查看；校准失败不占盲验卷；已揭晓卷不得再盲验。",
+  "queue": "leak-queue",
+  "judgement": {"leak": "漏封", "sealed": "合格"},
+  "round_states": ["draft", "calibrated", "revealed", "rejected"],
+  "job_kinds": ["calibration", "reveal"],
+  "job_states": ["queued", "running", "completed", "failed"],
+  "visual": "卷材分切蓝图、靛蓝",
+  "names": [
+    "砚田·卷材甲校准轮",
+    "砚田·卷材乙校准轮",
+    "砚田·卷材丙校准轮"
+  ]
+}

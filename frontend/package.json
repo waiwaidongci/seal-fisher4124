@@ -1,0 +1,6 @@
+{
+  "name": "research-notes-frontend",
+  "private": true,
+  "type": "module",
+  "description": "原生 ES modules 前端；无构建步骤，Nginx 直接托管 src。package.json 仅用于本地 Node 冒烟测试。"
+}

@@ -5,7 +5,8 @@ from sqlalchemy import text
 from redis import Redis
 from src.config.database import Base,engine
 from src.models import user,study,observation,run,review,audit
-from src.routes import auth,research
+from src.models import leak_roll,leak_specimen,leak_round,leak_job
+from src.routes import auth,research,leak
 from src.middlewares.errors import ErrorMiddleware
 from src.middlewares.rate_limit import RateLimitMiddleware
 @asynccontextmanager
@@ -16,11 +17,15 @@ async def lifespan(app):
             from scripts.seed_demo import seed
             seed()
         except Exception: logging.exception('seed failed; manual seed available')
+        try:
+            from scripts.seed_leak_demo import seed_leak
+            seed_leak()
+        except Exception: logging.exception('leak seed failed; manual seed available')
     yield
 app=FastAPI(lifespan=lifespan,title='Research Application')
 app.add_middleware(ErrorMiddleware)
 app.add_middleware(RateLimitMiddleware)
-app.include_router(auth.router);app.include_router(research.router)
+app.include_router(auth.router);app.include_router(research.router);app.include_router(leak.router)
 @app.get('/health')
 def health():
     with engine.connect() as conn: conn.execute(text('SELECT 1'))
